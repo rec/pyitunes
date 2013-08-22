@@ -2,11 +2,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from collections import OrderedDict
 
-def add_to_dict(parent, value):
-  key = parent.pop('__key', None)
-  parent[key or '__key'] = value
-
-
 class _BoolClass(object):
   CDATA = False
   def __nonzero__(self):
@@ -14,7 +9,6 @@ class _BoolClass(object):
 
   def __repr__(self):
     return repr(self.VALUE)
-
 
 class ArrayClass(list):
   CDATA = False
@@ -53,19 +47,16 @@ class StringClass(str):
 class TrueClass(_BoolClass):
   VALUE = True
 
-NAME_TO_TYPE = {
-  'array':   {'class': ArrayClass, 'start': ArrayClass, 'append': ArrayClass.append},
-  'data':    {'class': DataClass, 'cdata': DataClass},
-  'date':    {'class': DateClass, 'cdata': DateClass},
-  'dict':    {'class': DictClass, 'start': DictClass, 'append': DictClass.append},
-  'false':   {'class': FalseClass, 'start': FalseClass},
-  'integer': {'class': IntegerClass, 'cdata': IntegerClass},
-  'key':     {'class': KeyClass, 'cdata': KeyClass},
-  'plist':   {'class': PlistClass, 'start': PlistClass, 'append': PlistClass.append},
-  'real':    {'class': FloatClass, 'cdata': FloatClass},
-  'string':  {'class': StringClass, 'cdata': StringClass},
-  'true':    {'class': TrueClass, 'start': TrueClass},
-}
+SUFFIX = 'Class'
 
 def get_type(name):
-  return globals()[name.capitalize() + 'Class']
+  return globals()[name.capitalize() + SUFFIX]
+
+def get_name(value):
+  return value.__class__.__name__[:-len(SUFFIX)].lower()
+
+def is_list(value):
+  return isinstance(value, (ArrayClass, PlistClass))
+
+def is_dict(value):
+  return isinstance(value, DictClass)
