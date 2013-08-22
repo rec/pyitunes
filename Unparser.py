@@ -12,7 +12,6 @@ def _unparse_dict(x, element):
     key_element = ElementTree.SubElement(element, 'key')
     key_element.text = key
 
-
 def unparse(x, output=None):
   output = output or sys.stdout
   output.write(INTRO)

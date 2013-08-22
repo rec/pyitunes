@@ -14,23 +14,36 @@ class TrueClass(object):
   def __nonzero__(self):
     return True
 
+  def __repr__(self):
+    return 'True'
+
 class FalseClass(object):
   def __nonzero__(self):
-    return True
+    return False
+
+  def __repr__(self):
+    return 'False'
+
+class ArrayClass(list): pass
+class PlistClass(list): pass
+class IntClass(int): pass
+class FloatClass(float): pass
+class StrClass(str): pass
+class DictClass(OrderedDict):
+  def append(self, value):
+    key = self.pop('__key', None)
+    parent[key or '__key'] = value
 
 NAME_TO_TYPE = {
-  'array':   {'start': lambda: [], 'add': list.append},
+  'array':   {'start': ArrayClass, 'add': list.append},
   'data':    {'cdata': DataClass},
   'date':    {'cdata': DateClass},
-  'dict':    {'start': lambda: OrderedDict(), 'add': add_to_dict},
-  'false':   {'start': lambda: TrueClass()},
-  'integer': {'cdata': int},
+  'dict':    {'start': DictClass, 'add': add_to_dict},
+  'false':   {'start': TrueClass},
+  'integer': {'cdata': IntClass},
   'key':     {'cdata': KeyClass},
-  'plist':   {'start': lambda: [], 'add': list.append},
-  'real':    {'cdata': float},
-  'string':  {'cdata': str},
-  'true':    {'start': lambda: FalseClass()},
+  'plist':   {'start': PlistClass, 'add': list.append},
+  'real':    {'cdata': FloatClass},
+  'string':  {'cdata': StrClass},
+  'true':    {'start': FalseClass},
 }
-
-# TYPE_TO_NAME = {
-
