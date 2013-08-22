@@ -54,18 +54,18 @@ class TrueClass(_BoolClass):
   VALUE = True
 
 NAME_TO_TYPE = {
-  'array':   {'start': ArrayClass, 'append': ArrayClass.append},
-  'data':    {'cdata': DataClass},
-  'date':    {'cdata': DateClass},
-  'dict':    {'start': DictClass, 'append': DictClass.append},
-  'false':   {'start': FalseClass},
-  'integer': {'cdata': IntegerClass},
-  'key':     {'cdata': KeyClass},
-  'plist':   {'start': PlistClass, 'append': PlistClass.append},
-  'real':    {'cdata': FloatClass},
-  'string':  {'cdata': StringClass},
-  'true':    {'start': TrueClass},
+  'array':   {'class': ArrayClass, 'start': ArrayClass, 'append': ArrayClass.append},
+  'data':    {'class': DataClass, 'cdata': DataClass},
+  'date':    {'class': DateClass, 'cdata': DateClass},
+  'dict':    {'class': DictClass, 'start': DictClass, 'append': DictClass.append},
+  'false':   {'class': FalseClass, 'start': FalseClass},
+  'integer': {'class': IntegerClass, 'cdata': IntegerClass},
+  'key':     {'class': KeyClass, 'cdata': KeyClass},
+  'plist':   {'class': PlistClass, 'start': PlistClass, 'append': PlistClass.append},
+  'real':    {'class': FloatClass, 'cdata': FloatClass},
+  'string':  {'class': StringClass, 'cdata': StringClass},
+  'true':    {'class': TrueClass, 'start': TrueClass},
 }
 
 def get_type(name):
-  return locals()[name.capitalize() + 'Class']
+  return globals()[name.capitalize() + 'Class']

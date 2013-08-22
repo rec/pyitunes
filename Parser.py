@@ -5,8 +5,6 @@ import sys
 
 import Types
 
-USE_NEW_TYPES = True
-
 class NodeHandler(object):
   def __init__(self):
     self.stack = []
@@ -29,20 +27,19 @@ class NodeHandler(object):
       print('name:', name)
     self.element_count += 1
     frame = {}
-    handler = Types.NAME_TO_TYPE[name]
+    handler = Types.get_type(name)
     frame['handler'] = handler
-    if 'start' in handler:
-      frame['value'] = handler['start']()
+    if not handler.CDATA:
+      frame['value'] = handler()
     self.stack.append(frame)
 
   def CharacterDataHandler(self, data):
     frame = self.stack[-1]
     handler = frame['handler']
-    if 'cdata' in handler:
-      cdata = handler['cdata']
+    if handler.CDATA:
       self.msg('.')
       try:
-        frame['value'] = cdata(data)
+        frame['value'] = handler(data)
       except UnicodeEncodeError:
         frame['value'] = 'BAD UNICODE'
       except ValueError:
@@ -58,7 +55,7 @@ class NodeHandler(object):
     value = self.stack.pop()['value']
     if self.stack:
       frame = self.stack[-1]
-      frame['handler']['append'](frame['value'], value)
+      frame['handler'].append(frame['value'], value)
     else:
       self.value = value  # We're done!
 
