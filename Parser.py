@@ -5,6 +5,8 @@ import sys
 
 import Types
 
+USE_NEW_TYPES = True
+
 class NodeHandler(object):
   def __init__(self):
     self.stack = []
@@ -27,31 +29,27 @@ class NodeHandler(object):
       print('name:', name)
     self.element_count += 1
     frame = {}
-    if name in Types.NAME_TO_TYPE:
-      handler = Types.NAME_TO_TYPE[name]
-      frame['handler'] = handler
-      if 'start' in handler:
-        frame['value'] = handler['start']()
-    else:
-      raise Exception("Didn't understand type %s" % name)
+    handler = Types.NAME_TO_TYPE[name]
+    frame['handler'] = handler
+    if 'start' in handler:
+      frame['value'] = handler['start']()
     self.stack.append(frame)
 
   def CharacterDataHandler(self, data):
     frame = self.stack[-1]
-    if 'handler' in frame:
-      handler = frame['handler']
-      if 'cdata' in handler:
-        cdata = handler['cdata']
-        self.msg('.')
-        try:
-          frame['value'] = cdata(data)
-        except UnicodeEncodeError:
-          frame['value'] = 'BAD UNICODE'
-        except ValueError:
-          if not (cdata is int and data == '-'):
-            raise
-          else:
-            self.msg('!')
+    handler = frame['handler']
+    if 'cdata' in handler:
+      cdata = handler['cdata']
+      self.msg('.')
+      try:
+        frame['value'] = cdata(data)
+      except UnicodeEncodeError:
+        frame['value'] = 'BAD UNICODE'
+      except ValueError:
+        if not (cdata is int and data == '-'):
+          raise
+        else:
+          self.msg('!')
 
   def EndElementHandler(self, name):
     self.msg('-')
@@ -60,10 +58,7 @@ class NodeHandler(object):
     value = self.stack.pop()['value']
     if self.stack:
       frame = self.stack[-1]
-      if 'handler' in frame:
-        frame['handler']['add'](frame['value'], value)
-      else:
-        print('very strange', self.parser.CurrentLineNumber)
+      frame['handler']['append'](frame['value'], value)
     else:
       self.value = value  # We're done!
 

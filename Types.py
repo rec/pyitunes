@@ -6,44 +6,66 @@ def add_to_dict(parent, value):
   key = parent.pop('__key', None)
   parent[key or '__key'] = value
 
-class DataClass(str): pass
-class DateClass(str): pass
-class KeyClass(str): pass
 
-class TrueClass(object):
+class _BoolClass(object):
+  CDATA = False
   def __nonzero__(self):
-    return True
+    return self.VALUE
 
   def __repr__(self):
-    return 'True'
+    return repr(self.VALUE)
 
-class FalseClass(object):
-  def __nonzero__(self):
-    return False
 
-  def __repr__(self):
-    return 'False'
+class ArrayClass(list):
+  CDATA = False
 
-class ArrayClass(list): pass
-class PlistClass(list): pass
-class IntClass(int): pass
-class FloatClass(float): pass
-class StrClass(str): pass
+class DataClass(str):
+  CDATA = True
+
+class DateClass(str):
+  CDATA = True
+
 class DictClass(OrderedDict):
+  CDATA = False
+
   def append(self, value):
     key = self.pop('__key', None)
-    parent[key or '__key'] = value
+    self[key or '__key'] = value
+
+class FalseClass(_BoolClass):
+  VALUE = False
+
+class FloatClass(float):
+  CDATA = True
+
+class IntegerClass(int):
+  CDATA = True
+
+class KeyClass(str):
+  CDATA = True
+
+class PlistClass(list):
+  CDATA = False
+
+class StringClass(str):
+  CDATA = True
+
+class TrueClass(_BoolClass):
+  VALUE = True
 
 NAME_TO_TYPE = {
-  'array':   {'start': ArrayClass, 'add': list.append},
+  'array':   {'start': ArrayClass, 'append': ArrayClass.append},
   'data':    {'cdata': DataClass},
   'date':    {'cdata': DateClass},
-  'dict':    {'start': DictClass, 'add': add_to_dict},
-  'false':   {'start': TrueClass},
-  'integer': {'cdata': IntClass},
+  'dict':    {'start': DictClass, 'append': DictClass.append},
+  'false':   {'start': FalseClass},
+  'integer': {'cdata': IntegerClass},
   'key':     {'cdata': KeyClass},
-  'plist':   {'start': PlistClass, 'add': list.append},
+  'plist':   {'start': PlistClass, 'append': PlistClass.append},
   'real':    {'cdata': FloatClass},
-  'string':  {'cdata': StrClass},
-  'true':    {'start': FalseClass},
+  'string':  {'cdata': StringClass},
+  'true':    {'start': TrueClass},
 }
+
+def get_type(name):
+  return locals()[name.capitalize() + 'Class']
