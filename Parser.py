@@ -43,7 +43,7 @@ class NodeHandler(object):
       except UnicodeEncodeError:
         frame['value'] = 'BAD UNICODE'
       except ValueError:
-        if not (cdata is int and data == '-'):
+        if True or not (cdata is int and data == '-'):
           raise
         else:
           self.msg('!')

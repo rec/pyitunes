@@ -12,75 +12,101 @@
 	<key>Library Persistent ID</key><string>CE6C95E476E14FD4</string>
 	<key>Tracks</key>
 	<dict>
-		<key>17408</key>
+		<key>44802</key>
 		<dict>
-			<key>Track ID</key><integer>17408</integer>
-			<key>Name</key><string>Agua De Beber</string>
-			<key>Artist</key><string>Antonio Carlos Jobim</string>
-			<key>Composer</key><string>Antonio Carlos Jobim</string>
-			<key>Album</key><string>Warner Archives</string>
-			<key>Genre</key><string>Latin</string>
+			<key>Track ID</key><integer>44802</integer>
+			<key>Name</key><string>Too Drunk to Fuck</string>
+			<key>Artist</key><string>Butthole Surfers</string>
+			<key>Genre</key><string>131</string>
 			<key>Kind</key><string>MPEG audio file</string>
-			<key>Size</key><integer>5975963</integer>
-			<key>Total Time</key><integer>149342</integer>
-			<key>Track Number</key><integer>2</integer>
-			<key>Track Count</key><integer>28</integer>
-			<key>Date Modified</key><date>2005-04-02T02:04:44Z</date>
-			<key>Date Added</key><date>2005-12-06T02:54:10Z</date>
-			<key>Bit Rate</key><integer>320</integer>
+			<key>Size</key><integer>2547122</integer>
+			<key>Total Time</key><integer>159555</integer>
+			<key>Date Modified</key><date>2010-05-14T08:47:20Z</date>
+			<key>Date Added</key><date>2007-01-23T05:32:04Z</date>
+			<key>Bit Rate</key><integer>128</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Comments</key><string>Originally from "The Wonderful World of Antonio Carlos Jobim" 1965</string>
-			<key>Play Count</key><integer>11</integer>
-			<key>Play Date</key><integer>3294877752</integer>
-			<key>Play Date UTC</key><date>2008-05-29T07:49:12Z</date>
-			<key>Persistent ID</key><string>C58ECC9CAF7EC0E1</string>
+			<key>Play Count</key><integer>27</integer>
+			<key>Play Date</key><integer>3454980542</integer>
+			<key>Play Date UTC</key><date>2013-06-25T08:49:02Z</date>
+			<key>Persistent ID</key><string>4C7C6E9347281639</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/Volumes/Gog%202/itunes/Music/Antonio%20Carlos%20Jobim/Warner%20Archives/02%20Agua%20De%20Beber%201.mp3</string>
-			<key>File Folder Count</key><integer>-1</integer>
-			<key>Library Folder Count</key><integer>-1</integer>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Butthole%20Surfers/Unknown%20Album/Too%20Drunk%20to%20Fuck.mp3</string>
+			<key>File Folder Count</key><integer>4</integer>
+			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
-		<key>17410</key>
+		<key>44804</key>
 		<dict>
-			<key>Track ID</key><integer>17410</integer>
-			<key>Name</key><string>Antigua</string>
-			<key>Artist</key><string>Antonio Carlos Jobim</string>
-			<key>Composer</key><string>Antonio Carlos Jobim</string>
-			<key>Album</key><string>Wave</string>
-			<key>Genre</key><string>Latin</string>
+			<key>Track ID</key><integer>44804</integer>
+			<key>Name</key><string>Pot Songs - Butthole Surfers - Friend With Weed</string>
+			<key>Artist</key><string>Butthole surfers</string>
 			<key>Kind</key><string>MPEG audio file</string>
-			<key>Size</key><integer>7638324</integer>
-			<key>Total Time</key><integer>190902</integer>
-			<key>Disc Number</key><integer>1</integer>
-			<key>Disc Count</key><integer>1</integer>
-			<key>Track Number</key><integer>9</integer>
-			<key>Track Count</key><integer>10</integer>
-			<key>Year</key><integer>1967</integer>
-			<key>Date Modified</key><date>2005-04-01T19:34:14Z</date>
-			<key>Date Added</key><date>2005-12-06T02:54:10Z</date>
-			<key>Bit Rate</key><integer>320</integer>
+			<key>Size</key><integer>3796541</integer>
+			<key>Total Time</key><integer>236800</integer>
+			<key>Date Modified</key><date>2010-05-14T08:47:21Z</date>
+			<key>Date Added</key><date>2007-01-23T05:34:20Z</date>
+			<key>Bit Rate</key><integer>128</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Play Count</key><integer>10</integer>
-			<key>Play Date</key><integer>3296055155</integer>
-			<key>Play Date UTC</key><date>2008-06-11T22:52:35Z</date>
-			<key>Persistent ID</key><string>C58ECC9CAF7EC104</string>
+			<key>Play Count</key><integer>35</integer>
+			<key>Play Date</key><integer>3455382223</integer>
+			<key>Play Date UTC</key><date>2013-06-30T00:23:43Z</date>
+			<key>Persistent ID</key><string>4C7C6E934728163D</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/Volumes/Gog%202/itunes/Music/Antonio%20Carlos%20Jobim/Wave/09%20Antigua%201.mp3</string>
-			<key>File Folder Count</key><integer>-1</integer>
-			<key>Library Folder Count</key><integer>-1</integer>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Butthole%20surfers/Unknown%20Album/Pot%20Songs%20-%20Butthole%20Surfers%20-%20Friend%20With%20Weed.mp3</string>
+			<key>File Folder Count</key><integer>4</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>44806</key>
+		<dict>
+			<key>Track ID</key><integer>44806</integer>
+			<key>Name</key><string>Mousourlou</string>
+			<key>Artist</key><string>Michalis Batrinos</string>
+			<key>Kind</key><string>MPEG audio stream</string>
+			<key>Total Time</key><integer>254720</integer>
+			<key>Year</key><integer>1930</integer>
+			<key>Date Added</key><date>2007-01-24T03:11:14Z</date>
+			<key>Bit Rate</key><integer>128</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Play Count</key><integer>3</integer>
+			<key>Play Date</key><integer>3313778172</integer>
+			<key>Play Date UTC</key><date>2009-01-03T01:56:12Z</date>
+			<key>Persistent ID</key><string>4C7C6E9347281649</string>
+			<key>Track Type</key><string>URL</string>
+			<key>Location</key><string>http://www.dinosaurgardens.com/wp-content/uploads/2006/09/michalis_batrinos_-_mousourlou.mp3</string>
 		</dict>
 	</dict>
 	<key>Playlists</key>
 	<array>
 		<dict>
-			<key>Name</key><string>Bad indonesian</string>
-			<key>Playlist ID</key><integer>222034</integer>
+			<key>Name</key><string>Good indonesian</string>
+			<key>Playlist ID</key><integer>8923423</integer>
 			<key>Playlist Persistent ID</key><string>19F01BB8C824DF9E</string>
 			<key>All Items</key><true/>
 			<key>Playlist Items</key>
 			<array>
 				<dict>
-					<key>Track ID</key><integer>102296</integer>
+					<key>Track ID</key><integer>44802</integer>
 				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Name</key><string>Bad indonesian</string>
+			<key>Playlist ID</key><integer>8923423</integer>
+			<key>Playlist Persistent ID</key><string>19F01BB8C824DF9E</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+        <dict>
+					<key>Track ID</key><integer>44802</integer>
+        </dict>
+        <dict>
+					<key>Track ID</key><integer>44804</integer>
+        </dict>
+        <dict>
+					<key>Track ID</key><integer>44806</integer>
+        </dict>
+        <dict>
+					<key>Track ID</key><integer>44810</integer>
+        </dict>
 			</array>
 		</dict>
 	</array>
