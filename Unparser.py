@@ -10,24 +10,37 @@ INTRO = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 def _unparse_dict(element, x):
-  for key, value in x.iteritems():
-    SubElement(element, 'key').text = key
-    sub = SubElement(element, Types.get_name(value))
-    _unparse_value(sub, value)
+  try:
+    for key, value in x.iteritems():
+      SubElement(element, 'key').text = key
+      sub = SubElement(element, Types.get_name(value))
+      _unparse_value(sub, value)
+  except:
+    # print('dict', element, value)
+    raise
 
 def _unparse_list(element, value):
   for v in value:
     _unparse_dict(SubElement(element, 'dict'), v)
 
 def _unparse_value(element, value):
-  if value.CDATA:
-    element.text = str(value)
+  try:
+    if value.CDATA:
+      if hasattr(value, 'decode'):
+        value = value.decode('utf-8')
+      else:
+        value = str(value)
 
-  elif Types.is_list(value):
-    _unparse_list(element, value)
+      element.text = value
 
-  elif Types.is_dict(value):
-    _unparse_dict(element, value)
+    elif Types.is_list(value):
+      _unparse_list(element, value)
+
+    elif Types.is_dict(value):
+      _unparse_dict(element, value)
+  except:
+    # print('value', element, value)
+    raise
 
 def indent(elem, level=0, more_sibs=False):
   i = "\n"
@@ -61,4 +74,4 @@ def unparse(x, output=None):
   _unparse_value(root, x)
   indent(root)
   tree = ElementTree(root)
-  tree.write(output)
+  tree.write(output, encoding='utf-8')

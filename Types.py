@@ -41,8 +41,11 @@ class KeyClass(str):
 class PlistClass(list):
   CDATA = False
 
-class StringClass(str):
+class StringClass(bytes):
   CDATA = True
+
+  def __str__(self):
+    return self.decode('utf-8')
 
 class TrueClass(_BoolClass):
   VALUE = True

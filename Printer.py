@@ -4,19 +4,19 @@ import sys
 
 from collections import OrderedDict
 
-def _is_big(x):
-  if len(x) > 3:
-    return True
-  for i in x:
-    if isinstance(x, dict):
-      i = x[i]
-    if isinstance(i, dict) or isinstance(i, list):
-      return True
-
-
 class _Printer(object):
-  def __init__(self, out=sys.stdout, indentBy=' '):
-    self.write = out.write
+  @staticmethod
+  def is_big(x):
+    if len(x) > 3:
+      return True
+    for i in x:
+      if isinstance(x, dict):
+        i = x[i]
+      if isinstance(i, dict) or isinstance(i, list):
+        return True
+
+  def __init__(self, output, indentBy=' '):
+    self.write = output.write
     self.indentBy = indentBy
 
   def pretty_print(self, x, indent=''):
@@ -28,7 +28,7 @@ class _Printer(object):
       self.write(repr(x))
 
   def _print_complex(self, item, indent, is_array):
-    if _is_big(item):
+    if _Printer.is_big(item):
       writeIf = self.write
     else:
       writeIf = lambda x: x
@@ -52,5 +52,5 @@ class _Printer(object):
     self.write(is_array and ']' or '}')
 
 
-def pretty_print(x):
-  _Printer().pretty_print(x)
+def pretty_print(x, output=None):
+  _Printer(output or sys.stdout).pretty_print(x)

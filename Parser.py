@@ -38,15 +38,7 @@ class NodeHandler(object):
     handler = frame['handler']
     if handler.CDATA:
       self.msg('.')
-      try:
-        frame['value'] = handler(data)
-      except UnicodeEncodeError:
-        frame['value'] = 'BAD UNICODE'
-      except ValueError:
-        if True or not (cdata is int and data == '-'):
-          raise
-        else:
-          self.msg('!')
+      frame['value'] = handler(data.encode('utf-8'))
 
   def EndElementHandler(self, name):
     self.msg('-')
