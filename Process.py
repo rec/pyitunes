@@ -14,9 +14,11 @@ _TRACK_ID = 'Track ID'
 
 def _exists(track):
   location = track['Location']
-  if location.startswith(_PREFIX):
-    filename = urllib.url2pathname(location[len(_PREFIX):])
-    return os.path.exists(filename)
+  if not location.startswith(_PREFIX):
+    return True
+
+  filename = urllib.url2pathname(location[len(_PREFIX):])
+  return os.path.exists(filename)
 
 def remove_non_existent_files(itunes):
   removed_tracks = Types.DictClass()
