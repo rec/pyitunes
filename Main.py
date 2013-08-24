@@ -5,29 +5,42 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import os.path
 import sys
 
+from Constants import *
+
 import Parser
+from Plural import plural
 import Printer
 import Process
 import Unparser
 
-ITUNES_FILE = '~/Music/iTunes/iTunes Music Library.xml'
+def _write(filename, value, writer=Unparser.unparse):
+  with open(filename, 'w') as f:
+    writer(value, f)
 
-WRITER = Unparser.unparse
+def _filename():
+  if len(sys.argv) == 1:
+    itunes_file = ITUNES_FILE
+  else:
+    itunes_file = sys.argv[1]
+  return os.path.expanduser(itunes_file)
 
-if len(sys.argv) == 1:
-  itunes_file = ITUNES_FILE
-else:
-  itunes_file = sys.argv[1]
-  if len(sys.argv) > 2:
-    writer = Printer.pretty_print
+itunes_file = _filename()
+itunes = Parser.parse(itunes_file)
 
-itunes_file = os.path.expanduser(itunes_file)
+tracks, playlists, removed, affected = Process.process(itunes[0])
 
-result = Parser.parse(itunes_file)
-removed = Process.process(result[0])
+_write(itunes_file + '.out', itunes)
 
-with open(itunes_file + '.out', 'w') as f:
-  WRITER(result, f)
+print('Removed %s and %s from %s.' % (
+  plural(len(tracks), 'track'),
+  plural(removed, 'entry', 'entries'),
+  plural(affected, 'playlist')))
 
-with open(itunes_file + '.removed', 'w') as f:
-  WRITER(removed, f)
+print('Remaining %s and %s.' % (
+  plural(len(itunes[0][TRACKS_FIELD]), 'track'),
+  plural(len(itunes[0][PLAYLISTS_FIELD]), 'playlist')))
+
+itunes[0][TRACKS_FIELD] = tracks
+itunes[0][PLAYLISTS_FIELD] = playlists
+
+_write(itunes_file + '.removed', itunes, writer=Printer.pretty_print)

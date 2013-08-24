@@ -4,25 +4,20 @@ import copy
 import os.path
 import urllib
 
+from Constants import *
 import Types
-
-_PREFIX = 'file://localhost'
-_TRACKS = 'Tracks'
-_PLAYLISTS = 'Playlists'
-_ITEMS = 'Playlist Items'
-_TRACK_ID = 'Track ID'
 
 def _exists(track):
   location = track['Location']
-  if not location.startswith(_PREFIX):
+  if not location.startswith(FILE_PREFIX):
     return True
 
-  filename = urllib.url2pathname(location[len(_PREFIX):])
+  filename = urllib.url2pathname(location[len(FILE_PREFIX):])
   return os.path.exists(filename)
 
 def remove_non_existent_files(itunes):
   removed_tracks = Types.DictClass()
-  tracks = itunes[_TRACKS]
+  tracks = itunes[TRACKS_FIELD]
 
   to_remove = Types.ArrayClass()
   for key, track in tracks.iteritems():
@@ -36,28 +31,34 @@ def remove_non_existent_files(itunes):
   return removed_tracks
 
 def remove_missing_tracks_from_playlists(itunes):
+  removed_count = 0
+  playlists_affected = 0
   removed_playlists = Types.ArrayClass()
 
-  tracks = itunes[_TRACKS]
-  for playlist in itunes[_PLAYLISTS]:
+  tracks = itunes[TRACKS_FIELD]
+  for playlist in itunes[PLAYLISTS_FIELD]:
     kept, removed = Types.ArrayClass(), Types.ArrayClass()
     try:
-      items = playlist[_ITEMS]
+      items = playlist[ITEMS_FIELD]
     except KeyError:
       continue
     for item in items:
-      (kept if str(item[_TRACK_ID]) in tracks else removed).append(item)
+      exists = str(item[TRACK_ID_FIELD]) in tracks
+      (kept if exists else removed).append(item)
     if removed:
-      playlist[_ITEMS] = kept
+      playlist[ITEMS_FIELD] = kept
       removed_playlist = copy.copy(playlist)
-      removed_playlist[_ITEMS] = removed
+      removed_playlist[ITEMS_FIELD] = removed
       removed_playlists.append(removed_playlist)
+      removed_count += len(removed)
+      playlists_affected += 1
 
-  return removed_playlists
+  return removed_playlists, removed_count, playlists_affected
 
 def process(itunes):
   removed = copy.copy(itunes)
-  removed[_TRACKS] = remove_non_existent_files(itunes)
-  removed[_PLAYLISTS] = remove_missing_tracks_from_playlists(itunes)
+  tracks = remove_non_existent_files(itunes)
+  playlists, removed_playlists, playlists_affected = (
+    remove_missing_tracks_from_playlists(itunes))
 
-  return removed
+  return tracks, playlists, removed_playlists, playlists_affected
