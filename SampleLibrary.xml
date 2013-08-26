@@ -33,7 +33,57 @@
 			<key>Sort Artist</key><string>Grupo Afrocuba</string>
 			<key>Persistent ID</key><string>279E265C3FA3E813</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Grupo%20Afrocuba/Raices%20Africanas/12%20Abakua.mp3</string>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Grupo%20Afrocuba/Raices%20Africanas/12%20Abakua 01.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>92155</key>
+		<dict>
+			<key>Track ID</key><integer>92155</integer>
+			<key>Name</key><string>Four Damaged Lemons</string>
+			<key>Artist</key><string>Blonde Redhead</string>
+			<key>Album</key><string>Mélodie Citronique</string>
+			<key>Genre</key><string> Punk</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6230854</integer>
+			<key>Total Time</key><integer>311431</integer>
+			<key>Disc Number</key><integer>1</integer>
+			<key>Disc Count</key><integer>1</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Track Count</key><integer>5</integer>
+			<key>Year</key><integer>2000</integer>
+			<key>Date Modified</key><date>2005-09-29T14:58:24Z</date>
+			<key>Date Added</key><date>2013-08-26T01:39:45Z</date>
+			<key>Bit Rate</key><integer>160</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Persistent ID</key><string>08248C084781F85A</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Blonde%20Redhead/Me%CC%81lodie%20Citronique/05%20Four%20Damaged%20Lemons.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>92157</key>
+		<dict>
+			<key>Track ID</key><integer>92157</integer>
+			<key>Name</key><string>Four Damaged Lemons</string>
+			<key>Artist</key><string>Blonde Redhead</string>
+			<key>Album</key><string>Mélodie Citronique</string>
+			<key>Genre</key><string> Punk</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>6230854</integer>
+			<key>Total Time</key><integer>311431</integer>
+			<key>Disc Number</key><integer>1</integer>
+			<key>Disc Count</key><integer>1</integer>
+			<key>Track Number</key><integer>5</integer>
+			<key>Track Count</key><integer>5</integer>
+			<key>Year</key><integer>2000</integer>
+			<key>Date Modified</key><date>2005-09-29T14:58:24Z</date>
+			<key>Date Added</key><date>2013-08-26T01:39:45Z</date>
+			<key>Bit Rate</key><integer>160</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Persistent ID</key><string>01B7692125923110</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Blonde%20Redhead/Me%CC%81lodie%20Citronique/05%20Four%20Damaged%20Lemons%202.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
@@ -46,7 +96,7 @@
 			<key>Album</key><string>Raices Africanas</string>
 			<key>Genre</key><string>Folklore</string>
 			<key>Kind</key><string>MPEG audio file</string>
-			<key>Size</key><integer>11878289</integer>
+			<key>Size</key><integer>11879289</integer>
 			<key>Total Time</key><integer>380786</integer>
 			<key>Track Number</key><integer>12</integer>
 			<key>Track Count</key><integer>13</integer>

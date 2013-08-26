@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from collections import OrderedDict
+import os.path
 
 from Constants import *
 from Plural import plural
@@ -11,6 +12,15 @@ import Process
 import Util
 
 DELTA_TIME = 2000
+
+def try_to_print(caption, x):
+  try:
+    print(caption, x)
+  except:
+    try:
+      print('decode!', caption, x.decode('utf-8'))
+    except:
+      print('encode!', caption, x.encode('utf-8'))
 
 def make_track_table(itunes):
   track_table = {}
@@ -25,17 +35,20 @@ def time_key(track):
   return track.get(TOTAL_TIME_FIELD, 0)
 
 def size_key(track):
-  try:
-    return track[SIZE_FIELD]
-  except:
-    print('No size in track %s' % track[TRACK_ID_FIELD])
-    return 0
+  return track.get(SIZE_FIELD, 0)
+
+def location_key(track):
+  return len(track.get(LOCATION_FIELD, ''))
+
+def compare_track(t1, t2):
+  return (size_key(t1) - size_key(t2)) or (
+    location_key(t1) - location_key(t2))
 
 def find_dupes(track_table):
   removed = 0
   preserved = 0
   bad_times = 0
-  dupes = {}
+  dupes = OrderedDict()
 
   for index, tracks in track_table.iteritems():
     tracks.sort(key=time_key)
@@ -45,7 +58,7 @@ def find_dupes(track_table):
       time = time_key(track)
       if not time:
         bad_times += 1
-        print('bad time:', track)
+        # print('bad time:', track)
         continue
       if (time - last_time) > DELTA_TIME:
         segment = []
@@ -56,7 +69,7 @@ def find_dupes(track_table):
       removed += len(segment) - 1
       preserved += 1
       if len(segment) > 1:
-        segment.sort(key=size_key)
+        segment.sort(cmp=compare_track)
         best = segment.pop()
         dupes[best[TRACK_ID_FIELD]] = segment
 
@@ -66,9 +79,9 @@ def find_dupes(track_table):
          plural(bad_times, 'bad time')))
   return dupes
 
-def remove_dupes(itunes, dupes):
-  to_remove = []
-  inverse_dupes = {}
+def remove_dupes_from_database(itunes, dupes):
+  dupe_files = []
+  inverse_dupes = OrderedDict()
   tracks = itunes[0][TRACKS_FIELD]
   for id, deletions in dupes.iteritems():
     good_track = tracks[str(id)]
@@ -78,19 +91,63 @@ def remove_dupes(itunes, dupes):
       good_track[PLAY_COUNT_FIELD] = (good_track.get(PLAY_COUNT_FIELD, 0) +
                                       dtrack.get(PLAY_COUNT_FIELD, 0))
       del tracks[str(delete_id)]
-      to_remove.append(Process.get_filename(dtrack))
+      dupe_file = Process.get_filename(dtrack)
+      if dupe_file:
+        dupe_files.append(dupe_file)
 
   for playlist in itunes[0][PLAYLISTS_FIELD]:
-    for track in playlist[ITEMS_FIELD]:
+    try:
+      items = playlist[ITEMS_FIELD]
+    except:
+      # print('No items in playlist', playlist.get('Playlist ID', None))
+      continue
+    for track in items:
       replacement = inverse_dupes.get(track[TRACK_ID_FIELD])
       if replacement is not None:
         track[TRACK_ID_FIELD] = replacement
-  return to_remove
+  return dupe_files
+
+def move_file_dupes(dupe_files, new_directory, output_file):
+  with open(output_file, 'w') as out:
+    for f in dupe_files:
+      path1, fname = os.path.split(f)
+      path2, dir1 = os.path.split(path1)
+      path3, dir2 = os.path.split(path2)
+      try:
+        dir1 = dir1.decode('utf-8')
+        dir2 = dir2.decode('utf-8')
+        new_path = os.path.join(new_directory, dir2, dir1)
+      except:
+        print(type(dir1), '"%s"' % repr(dir1))
+        try_to_print('dir1', dir1)
+        try_to_print('dir2', dir2)
+        try_to_print('fname', fname)
+        if True: raise
+        try:
+          new_path = '%s/%s/%s' % (new_directory, str(dir2), str(dir1))
+        except:
+          print('failed to create new_path')
+          new_path = '(NONE)'
+
+      mkdir = 'mkdir -p "%s"\n' % new_path
+      out.write(mkdir.encode('utf-8'))
+
+      try:
+        if True:
+          mover = 'mv "%s" "%s"\n' % (f.decode('utf-8'), new_path)
+        else:
+          mover = 'mv "s" "%s"\n' % (new_path)
+        out.write(mover.encode('utf-8'))
+      except:
+        try_to_print('2 - f', f)
+        try_to_print('2 - new_path', new_path)
+        raise
 
 
 itunes = Parser.parse()
 dupes = find_dupes(make_track_table(itunes))
-print('to_remove:', remove_dupes(itunes, dupes))
+dupe_files = remove_dupes_from_database(itunes, dupes)
+move_file_dupes(dupe_files, '/test/result', '/tmp/results.sh')
 
 Util.write_itunes(Util.itunes_filename() + '.test', itunes,
                 writer=Printer.pretty_print)
