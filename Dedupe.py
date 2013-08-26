@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from collections import OrderedDict
 import os.path
+import sys
 
 from Constants import *
 from Plural import plural
@@ -133,6 +134,17 @@ def dedupe(result_directory, result_script):
   Util.write_itunes(Util.itunes_filename() + '.out', itunes,
                   writer=Printer.pretty_print)
 
-
 if __name__ == '__main__':
-  dedupe('/test/result', '/tmp/results.sh')
+  if len(sys.argv) <= 2:
+    result_directory = REMOVED_ITUNES_DIRECTORY
+  else:
+    result_directory = sys.argv[2]
+
+  if len(sys.argv) <= 3:
+    result_script = SCRIPT_FILE
+  else:
+    result_script = sys.argv[3]
+  if not os.path.isabs(result_script):
+    result_script = os.path.join(result_directory, result_script)
+
+  dedupe(result_directory, result_script)

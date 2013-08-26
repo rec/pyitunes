@@ -1,6 +1,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 ITUNES_FILE = '~/Music/iTunes/iTunes Music Library.xml'
+REMOVED_ITUNES_DIRECTORY = '/Volumes/Zog/Documents/removed_itunes/'
+SCRIPT_FILE = 'remove_old.sh'
 FILE_PREFIX = 'file://localhost'
 
 ARTIST_FIELD = 'Artist'
