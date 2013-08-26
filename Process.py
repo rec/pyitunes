@@ -7,13 +7,14 @@ import urllib
 from Constants import *
 import Types
 
-def _exists(track):
+def get_filename(track):
   location = track['Location']
-  if not location.startswith(FILE_PREFIX):
-    return True
+  if location.startswith(FILE_PREFIX):
+    return urllib.url2pathname(location[len(FILE_PREFIX):])
 
-  filename = urllib.url2pathname(location[len(FILE_PREFIX):])
-  return os.path.exists(filename)
+def _exists(track):
+  filename = get_filename(track)
+  return (not filename) or os.path.exists(filename)
 
 def remove_non_existent_files(itunes):
   removed_tracks = Types.DictClass()

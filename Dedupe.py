@@ -2,12 +2,12 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from collections import OrderedDict
-import operator
 
 from Constants import *
-import Parser
 from Plural import plural
+import Parser
 import Printer
+import Process
 import Util
 
 DELTA_TIME = 2000
@@ -60,7 +60,6 @@ def find_dupes(track_table):
         best = segment.pop()
         dupes[best[TRACK_ID_FIELD]] = segment
 
-
   print('%s, %s removed, %s preserved, %s' %
         (plural(len(track_table), 'track'),
          removed, preserved,
@@ -68,11 +67,30 @@ def find_dupes(track_table):
   return dupes
 
 def remove_dupes(itunes, dupes):
-  pass
+  to_remove = []
+  inverse_dupes = {}
+  tracks = itunes[0][TRACKS_FIELD]
+  for id, deletions in dupes.iteritems():
+    good_track = tracks[str(id)]
+    for dtrack in deletions:
+      delete_id = dtrack[TRACK_ID_FIELD]
+      inverse_dupes[delete_id] = id
+      good_track[PLAY_COUNT_FIELD] = (good_track.get(PLAY_COUNT_FIELD, 0) +
+                                      dtrack.get(PLAY_COUNT_FIELD, 0))
+      del tracks[str(delete_id)]
+      to_remove.append(Process.get_filename(dtrack))
+
+  for playlist in itunes[0][PLAYLISTS_FIELD]:
+    for track in playlist[ITEMS_FIELD]:
+      replacement = inverse_dupes.get(track[TRACK_ID_FIELD])
+      if replacement is not None:
+        track[TRACK_ID_FIELD] = replacement
+  return to_remove
+
 
 itunes = Parser.parse()
 dupes = find_dupes(make_track_table(itunes))
-remove_dupes(itunes, dupes)
+print('to_remove:', remove_dupes(itunes, dupes))
 
-  #Util.write_itunes(Util.itunes_filename() + '.test', itunes,
-  #                writer=Printer.pretty_print)
+Util.write_itunes(Util.itunes_filename() + '.test', itunes,
+                writer=Printer.pretty_print)

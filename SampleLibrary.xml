@@ -46,7 +46,7 @@
 			<key>Album</key><string>Raices Africanas</string>
 			<key>Genre</key><string>Folklore</string>
 			<key>Kind</key><string>MPEG audio file</string>
-			<key>Size</key><integer>11879289</integer>
+			<key>Size</key><integer>11878289</integer>
 			<key>Total Time</key><integer>380786</integer>
 			<key>Track Number</key><integer>12</integer>
 			<key>Track Count</key><integer>13</integer>
@@ -195,6 +195,9 @@
         </dict>
         <dict>
 					<key>Track ID</key><integer>44810</integer>
+        </dict>
+        <dict>
+					<key>Track ID</key><integer>66463</integer>
         </dict>
 			</array>
 		</dict>
