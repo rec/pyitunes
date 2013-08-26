@@ -113,41 +113,26 @@ def move_file_dupes(dupe_files, new_directory, output_file):
       path1, fname = os.path.split(f)
       path2, dir1 = os.path.split(path1)
       path3, dir2 = os.path.split(path2)
-      try:
-        dir1 = dir1.decode('utf-8')
-        dir2 = dir2.decode('utf-8')
-        new_path = os.path.join(new_directory, dir2, dir1)
-      except:
-        print(type(dir1), '"%s"' % repr(dir1))
-        try_to_print('dir1', dir1)
-        try_to_print('dir2', dir2)
-        try_to_print('fname', fname)
-        if True: raise
-        try:
-          new_path = '%s/%s/%s' % (new_directory, str(dir2), str(dir1))
-        except:
-          print('failed to create new_path')
-          new_path = '(NONE)'
+      dir1 = dir1.decode('utf-8')
+      dir2 = dir2.decode('utf-8')
+      new_path = os.path.join(new_directory, dir2, dir1)
 
       mkdir = 'mkdir -p "%s"\n' % new_path
       out.write(mkdir.encode('utf-8'))
 
-      try:
-        if True:
-          mover = 'mv "%s" "%s"\n' % (f.decode('utf-8'), new_path)
-        else:
-          mover = 'mv "s" "%s"\n' % (new_path)
-        out.write(mover.encode('utf-8'))
-      except:
-        try_to_print('2 - f', f)
-        try_to_print('2 - new_path', new_path)
-        raise
+      mover = 'mv "%s" "%s"\n' % (f.decode('utf-8'), new_path)
+      out.write(mover.encode('utf-8'))
 
 
-itunes = Parser.parse()
-dupes = find_dupes(make_track_table(itunes))
-dupe_files = remove_dupes_from_database(itunes, dupes)
-move_file_dupes(dupe_files, '/test/result', '/tmp/results.sh')
+def dedupe(result_directory, result_script):
+  itunes = Parser.parse()
+  dupes = find_dupes(make_track_table(itunes))
+  dupe_files = remove_dupes_from_database(itunes, dupes)
+  move_file_dupes(dupe_files, result_directory, result_script)
 
-Util.write_itunes(Util.itunes_filename() + '.test', itunes,
-                writer=Printer.pretty_print)
+  Util.write_itunes(Util.itunes_filename() + '.out', itunes,
+                  writer=Printer.pretty_print)
+
+
+if __name__ == '__main__':
+  dedupe('/test/result', '/tmp/results.sh')
