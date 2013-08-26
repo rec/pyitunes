@@ -12,6 +12,59 @@
 	<key>Library Persistent ID</key><string>CE6C95E476E14FD4</string>
 	<key>Tracks</key>
 	<dict>
+		<key>66441</key>
+		<dict>
+			<key>Track ID</key><integer>66441</integer>
+			<key>Name</key><string>Abakua</string>
+			<key>Artist</key><string>Grupo Afrocuba</string>
+			<key>Album Artist</key><string>Grupo Afrocuba</string>
+			<key>Album</key><string>Raices Africanas</string>
+			<key>Genre</key><string>Folklore</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>11879289</integer>
+			<key>Total Time</key><integer>380786</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Track Count</key><integer>13</integer>
+			<key>Year</key><integer>1998</integer>
+			<key>Date Modified</key><date>2010-05-20T16:46:15Z</date>
+			<key>Date Added</key><date>2013-08-26T01:25:07Z</date>
+			<key>Bit Rate</key><integer>249</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Sort Artist</key><string>Grupo Afrocuba</string>
+			<key>Persistent ID</key><string>279E265C3FA3E813</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Grupo%20Afrocuba/Raices%20Africanas/12%20Abakua.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
+		<key>66463</key>
+		<dict>
+			<key>Track ID</key><integer>66463</integer>
+			<key>Name</key><string>Abakua</string>
+			<key>Artist</key><string>Grupo Afrocuba</string>
+			<key>Album Artist</key><string>Grupo Afrocuba</string>
+			<key>Album</key><string>Raices Africanas</string>
+			<key>Genre</key><string>Folklore</string>
+			<key>Kind</key><string>MPEG audio file</string>
+			<key>Size</key><integer>11879289</integer>
+			<key>Total Time</key><integer>380786</integer>
+			<key>Track Number</key><integer>12</integer>
+			<key>Track Count</key><integer>13</integer>
+			<key>Year</key><integer>1998</integer>
+			<key>Date Modified</key><date>2010-05-20T16:46:15Z</date>
+			<key>Date Added</key><date>2013-08-26T01:25:08Z</date>
+			<key>Bit Rate</key><integer>249</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Play Count</key><integer>2</integer>
+			<key>Play Date</key><integer>3440451715</integer>
+			<key>Play Date UTC</key><date>2013-01-08T05:01:55Z</date>
+			<key>Sort Artist</key><string>Grupo Afrocuba</string>
+			<key>Persistent ID</key><string>868AD9343169F36D</string>
+			<key>Track Type</key><string>File</string>
+			<key>Location</key><string>file://localhost/Volumes/Zog/Documents/iTunes/Music/Grupo%20Afrocuba/Raices%20Africanas/12%20Abakua%202.mp3</string>
+			<key>File Folder Count</key><integer>5</integer>
+			<key>Library Folder Count</key><integer>1</integer>
+		</dict>
 		<key>19162</key>
 		<dict>
 			<key>Track ID</key><integer>19162</integer>

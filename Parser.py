@@ -4,6 +4,7 @@ import xml.parsers.expat
 import sys
 
 import Types
+import Util
 
 class NodeHandler(object):
   def __init__(self):
@@ -65,5 +66,5 @@ class NodeHandler(object):
     self.parser.Parse('', True)
     return self.value
 
-def parse(filename):
-  return NodeHandler().parse_file(filename)
+def parse(filename=None):
+  return NodeHandler().parse_file(filename or Util.itunes_filename())
