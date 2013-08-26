@@ -138,24 +138,6 @@
 			<key>File Folder Count</key><integer>4</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
-		<key>44806</key>
-		<dict>
-			<key>Track ID</key><integer>44806</integer>
-			<key>Name</key><string>Mousourlou</string>
-			<key>Artist</key><string>Michalis Batrinos</string>
-			<key>Kind</key><string>MPEG audio stream</string>
-			<key>Total Time</key><integer>254720</integer>
-			<key>Year</key><integer>1930</integer>
-			<key>Date Added</key><date>2007-01-24T03:11:14Z</date>
-			<key>Bit Rate</key><integer>128</integer>
-			<key>Sample Rate</key><integer>44100</integer>
-			<key>Play Count</key><integer>3</integer>
-			<key>Play Date</key><integer>3313778172</integer>
-			<key>Play Date UTC</key><date>2009-01-03T01:56:12Z</date>
-			<key>Persistent ID</key><string>4C7C6E9347281649</string>
-			<key>Track Type</key><string>URL</string>
-			<key>Location</key><string>http://www.dinosaurgardens.com/wp-content/uploads/2006/09/michalis_batrinos_-_mousourlou.mp3</string>
-		</dict>
 		<key>44810</key>
 		<dict>
 			<key>Track ID</key><integer>44806</integer>
