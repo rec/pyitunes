@@ -2,64 +2,82 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from collections import OrderedDict
 
-class _BoolClass(object):
-  CDATA = False
-  def __nonzero__(self):
-    return self.VALUE
 
-  def __repr__(self):
-    return repr(self.VALUE)
+class _BoolClass(object):
+    CDATA = False
+
+    def __nonzero__(self):
+        return self.VALUE
+
+    def __repr__(self):
+        return repr(self.VALUE)
+
 
 class ArrayClass(list):
-  CDATA = False
+    CDATA = False
+
 
 class DataClass(str):
-  CDATA = True
+    CDATA = True
+
 
 class DateClass(str):
-  CDATA = True
+    CDATA = True
+
 
 class DictClass(OrderedDict):
-  CDATA = False
+    CDATA = False
 
-  def append(self, value):
-    key = self.pop('__key', None)
-    self[key or '__key'] = value
+    def append(self, value):
+        key = self.pop('__key', None)
+        self[key or '__key'] = value
+
 
 class FalseClass(_BoolClass):
-  VALUE = False
+    VALUE = False
+
 
 class FloatClass(float):
-  CDATA = True
+    CDATA = True
+
 
 class IntegerClass(int):
-  CDATA = True
+    CDATA = True
+
 
 class KeyClass(str):
-  CDATA = True
+    CDATA = True
+
 
 class PlistClass(list):
-  CDATA = False
+    CDATA = False
+
 
 class StringClass(bytes):
-  CDATA = True
+    CDATA = True
 
-  def __str__(self):
-    return self.decode('utf-8')
+    def __str__(self):
+        return self.decode('utf-8')
+
 
 class TrueClass(_BoolClass):
-  VALUE = True
+    VALUE = True
+
 
 SUFFIX = 'Class'
 
+
 def get_type(name):
-  return globals()[name.capitalize() + SUFFIX]
+    return globals()[name.capitalize() + SUFFIX]
+
 
 def get_name(value):
-  return value.__class__.__name__[:-len(SUFFIX)].lower()
+    return value.__class__.__name__[:-len(SUFFIX)].lower()
+
 
 def is_list(value):
-  return isinstance(value, (ArrayClass, PlistClass))
+    return isinstance(value, (ArrayClass, PlistClass))
+
 
 def is_dict(value):
-  return isinstance(value, DictClass)
+    return isinstance(value, DictClass)
