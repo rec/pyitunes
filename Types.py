@@ -3,7 +3,28 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from collections import OrderedDict
 
 
-class _BoolClass(object):
+class _Class(object):
+    CDATA = True
+    LIST = False
+    DICT = False
+
+
+class DataClass(str, _Class): pass
+class DateClass(str, _Class): pass
+class FloatClass(float, _Class): pass
+class IntegerClass(int, _Class): pass
+class KeyClass(str, _Class): pass
+
+class _List(_Class):
+    CDATA = False
+    LIST = True
+
+
+class ArrayClass(list, _List): pass
+class PlistClass(list, _List): pass
+
+
+class _Bool(_Class):
     CDATA = False
 
     def __nonzero__(self):
@@ -13,55 +34,23 @@ class _BoolClass(object):
         return repr(self.VALUE)
 
 
-class ArrayClass(list):
+class TrueClass(_Bool):  VALUE = True
+class FalseClass(_Bool): VALUE = False
+
+
+class DictClass(OrderedDict, _Class):
     CDATA = False
-
-
-class DataClass(str):
-    CDATA = True
-
-
-class DateClass(str):
-    CDATA = True
-
-
-class DictClass(OrderedDict):
-    CDATA = False
+    DICT = True
 
     def append(self, value):
         key = self.pop('__key', None)
         self[key or '__key'] = value
 
 
-class FalseClass(_BoolClass):
-    VALUE = False
-
-
-class FloatClass(float):
-    CDATA = True
-
-
-class IntegerClass(int):
-    CDATA = True
-
-
-class KeyClass(str):
-    CDATA = True
-
-
-class PlistClass(list):
-    CDATA = False
-
-
-class StringClass(bytes):
-    CDATA = True
-
+class StringClass(bytes, _Class):
     def __str__(self):
         return self.decode('utf-8')
 
-
-class TrueClass(_BoolClass):
-    VALUE = True
 
 
 SUFFIX = 'Class'
@@ -73,11 +62,3 @@ def get_type(name):
 
 def get_name(value):
     return value.__class__.__name__[:-len(SUFFIX)].lower()
-
-
-def is_list(value):
-    return isinstance(value, (ArrayClass, PlistClass))
-
-
-def is_dict(value):
-    return isinstance(value, DictClass)

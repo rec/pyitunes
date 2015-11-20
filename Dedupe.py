@@ -2,15 +2,10 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from collections import OrderedDict
-import os.path
-import sys
+import os.path, sys
 
-from Constants import *
 from Plural import plural
-import Parser
-import Printer
-import Process
-import Util
+import Constants, Parser, Printer, Process
 
 DELTA_TIME = 2000
 
@@ -81,9 +76,10 @@ def find_dupes(track_table):
                 best = segment.pop()
                 dupes[best[TRACK_ID_FIELD]] = segment
 
-    print('%s, %s removed, %s preserved, %s' % (plural(
-        len(track_table), 'track'), removed, preserved,
-                                                plural(bad_times, 'bad time')))
+    bad = plural(bad_times, 'bad time')
+    total = plural(len(track_table), 'track')
+    print('%s, %s removed, %s preserved, %s' % (total, removed, preserved, bad))
+
     return dupes
 
 
@@ -134,7 +130,7 @@ def move_file_dupes(dupe_files, new_directory, output_file):
 
 
 def dedupe(result_directory, result_script):
-    itunes = Parser.parse()
+    itunes = Parser.parse(Constants.ITUNES_FILENAME)
     dupes = find_dupes(make_track_table(itunes))
     dupe_files = remove_dupes_from_database(itunes, dupes)
     move_file_dupes(dupe_files, result_directory, result_script)

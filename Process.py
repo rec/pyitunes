@@ -4,14 +4,13 @@ import copy
 import os.path
 import urllib
 
-from Constants import *
-import Types
+import Constants, Types
 
 
 def get_filename(track):
     location = track['Location']
     if location.startswith(FILE_PREFIX):
-        return urllib.url2pathname(location[len(FILE_PREFIX):])
+        return urllib.url2pathname(location[len(Constants.FILE_PREFIX):])
 
 
 def _exists(track):
@@ -21,7 +20,7 @@ def _exists(track):
 
 def remove_non_existent_files(itunes):
     removed_tracks = Types.DictClass()
-    tracks = itunes[TRACKS_FIELD]
+    tracks = itunes[Constants.TRACKS_FIELD]
 
     to_remove = Types.ArrayClass()
     for key, track in tracks.iteritems():
@@ -40,20 +39,20 @@ def remove_missing_tracks_from_playlists(itunes):
     playlists_affected = 0
     removed_playlists = Types.ArrayClass()
 
-    tracks = itunes[TRACKS_FIELD]
-    for playlist in itunes[PLAYLISTS_FIELD]:
+    tracks = itunes[Constants.TRACKS_FIELD]
+    for playlist in itunes[Constants.PLAYLISTS_FIELD]:
         kept, removed = Types.ArrayClass(), Types.ArrayClass()
         try:
-            items = playlist[ITEMS_FIELD]
+            items = playlist[Constants.ITEMS_FIELD]
         except KeyError:
             continue
         for item in items:
-            exists = str(item[TRACK_ID_FIELD]) in tracks
+            exists = str(item[Constants.TRACK_ID_FIELD]) in tracks
             (kept if exists else removed).append(item)
         if removed:
-            playlist[ITEMS_FIELD] = kept
+            playlist[Constants.ITEMS_FIELD] = kept
             removed_playlist = copy.copy(playlist)
-            removed_playlist[ITEMS_FIELD] = removed
+            removed_playlist[Constants.ITEMS_FIELD] = removed
             removed_playlists.append(removed_playlist)
             removed_count += len(removed)
             playlists_affected += 1

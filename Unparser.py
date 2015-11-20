@@ -36,10 +36,10 @@ def _unparse_value(element, value):
 
             element.text = value
 
-        elif Types.is_list(value):
+        elif value.LIST:
             _unparse_list(element, value)
 
-        elif Types.is_dict(value):
+        elif value.DICT:
             _unparse_dict(element, value)
     except:
         # print('value', element, value)
@@ -80,3 +80,8 @@ def unparse(x, output=None):
     indent(root)
     tree = ElementTree(root)
     tree.write(output, encoding='utf-8')
+
+
+def unparse_file(filename, value):
+    with open(filename, 'w') as f:
+        unparse(value, f)
