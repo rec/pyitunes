@@ -1,28 +1,13 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from collections import OrderedDict
-
 
 class _Class(object):
     CDATA = True
     LIST = False
     DICT = False
 
-
-class DataClass(str, _Class): pass
-class DateClass(str, _Class): pass
-class FloatClass(float, _Class): pass
-class IntegerClass(int, _Class): pass
-class KeyClass(str, _Class): pass
-
 class _List(_Class):
     CDATA = False
     LIST = True
-
-
-class ArrayClass(list, _List): pass
-class PlistClass(list, _List): pass
-
 
 class _Bool(_Class):
     CDATA = False
@@ -33,9 +18,26 @@ class _Bool(_Class):
     def __repr__(self):
         return repr(self.VALUE)
 
+class DataClass(str, _Class):
+    pass
+class DateClass(str, _Class):
+    pass
+class FloatClass(float, _Class):
+    pass
+class IntegerClass(int, _Class):
+    pass
+class KeyClass(str, _Class):
+    pass
 
-class TrueClass(_Bool):  VALUE = True
-class FalseClass(_Bool): VALUE = False
+class ArrayClass(list, _List):
+    pass
+class PlistClass(list, _List):
+    pass
+
+class TrueClass(_Bool):
+    VALUE = True
+class FalseClass(_Bool):
+    VALUE = False
 
 
 class DictClass(OrderedDict, _Class):
@@ -50,7 +52,6 @@ class DictClass(OrderedDict, _Class):
 class StringClass(bytes, _Class):
     def __str__(self):
         return self.decode('utf-8')
-
 
 
 SUFFIX = 'Class'

@@ -1,7 +1,5 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import sys
-from xml.etree.cElementTree import SubElement, ElementTree, Element
+from xml.etree.elementTree import SubElement, ElementTree, Element
 
 import Types
 
@@ -12,7 +10,7 @@ INTRO = """<?xml version="1.0" encoding="UTF-8"?>
 
 def _unparse_dict(element, x):
     try:
-        for key, value in x.iteritems():
+        for key, value in x.items():
             SubElement(element, 'key').text = key
             sub = SubElement(element, Types.get_name(value))
             _unparse_value(sub, value)

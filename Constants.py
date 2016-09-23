@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 DEFAULT_ITUNES_FILE = '/Users/tom/Music/iTunes/iTunes Music Library.xml'
 REMOVED_ITUNES_DIRECTORY = '/Volumes/Zog/Documents/removed_itunes/'
 SCRIPT_FILE = 'remove_old.sh'

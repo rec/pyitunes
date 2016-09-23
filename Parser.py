@@ -1,13 +1,10 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+import argparse, sys, xml.parsers.expat
+from . import Util, Types
 
-import sys, xml.parsers.expat
-import Util, Types
-
+CHAR_COUNT = 40
+PRINTED_CHARS = frozenset('!')
 
 class NodeHandler(object):
-    CHAR_COUNT = 40
-    PRINTED_CHARS = frozenset('!')
-
     def __init__(self, debug=False):
         self.stack = []
         self.element_count = 0
@@ -22,7 +19,8 @@ class NodeHandler(object):
         self._msg('+')
         self.debug('name:', name)
         self.element_count += 1
-        frame = Util.Object()
+
+        frame = argparse.Namespace()
         frame.handler = Types.get_type(name)
         if not frame.handler.CDATA:
             frame.value = frame.handler()
@@ -42,7 +40,7 @@ class NodeHandler(object):
             frame = self.stack[-1]
             frame.handler.append(frame.value, value)
         else:
-            self.value = value  # We're done!
+            self.return_value = value  # We're done!
 
     def _msg(self, m):
         if m in self.PRINTED_CHARS:
@@ -61,7 +59,7 @@ class NodeHandler(object):
         for line in open(filename):
             parser.Parse(line)
         parser.Parse('', True)
-        return self.value
+        return self.return_value
 
 
 def parse(filename):

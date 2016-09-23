@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-from __future__ import absolute_import, division, print_function, unicode_literals
+#!/usr/bin/env python3
 
 from collections import OrderedDict
 import os.path, sys
@@ -23,7 +22,7 @@ def try_to_print(caption, x):
 def make_track_table(itunes):
     track_table = {}
 
-    for track in itunes[0][TRACKS_FIELD].itervalues():
+    for track in itunes[0][TRACKS_FIELD].values():
         key = (track.get(NAME_FIELD, '(no name)'),
                track.get(ARTIST_FIELD, '(no artist'))
         track_table.setdefault(key, []).append(track)
@@ -53,7 +52,7 @@ def find_dupes(track_table):
     bad_times = 0
     dupes = OrderedDict()
 
-    for index, tracks in track_table.iteritems():
+    for index, tracks in track_table.items():
         tracks.sort(key=time_key)
         last_time = -1
         segments = []
@@ -87,7 +86,7 @@ def remove_dupes_from_database(itunes, dupes):
     dupe_files = []
     inverse_dupes = OrderedDict()
     tracks = itunes[0][TRACKS_FIELD]
-    for id, deletions in dupes.iteritems():
+    for id, deletions in dupes.items():
         good_track = tracks[str(id)]
         for dtrack in deletions:
             delete_id = dtrack[TRACK_ID_FIELD]

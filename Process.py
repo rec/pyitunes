@@ -1,10 +1,5 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
-import copy
-import os.path
-import urllib
-
-import Constants, Types
+import argparse, copy, os.path, urllib
+from . import Constants, Types
 
 
 def get_filename(track):
@@ -23,7 +18,7 @@ def remove_non_existent_files(itunes):
     tracks = itunes[Constants.TRACKS_FIELD]
 
     to_remove = Types.ArrayClass()
-    for key, track in tracks.iteritems():
+    for key, track in tracks.items():
         if not _exists(track):
             to_remove.append([key, track])
 
@@ -66,4 +61,8 @@ def process(itunes):
     playlists, removed_playlists, playlists_affected = (
         remove_missing_tracks_from_playlists(itunes))
 
-    return tracks, playlists, removed_playlists, playlists_affected
+    return argparse.Namespace(
+        tracks=tracks,
+        playlists=playlists,
+        removed_playlists=removed_playlists,
+        playlists_affected=playlists_affected)
