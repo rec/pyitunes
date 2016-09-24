@@ -49,10 +49,8 @@ class DictClass(OrderedDict, _Class):
         self[key or '__key'] = value
 
 
-class StringClass(bytes, _Class):
-    def __str__(self):
-        return self.decode('utf-8')
-
+class StringClass(str, _Class):
+    pass
 
 SUFFIX = 'Class'
 

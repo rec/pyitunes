@@ -43,10 +43,10 @@ class NodeHandler(object):
             self.return_value = value  # We're done!
 
     def _msg(self, m):
-        if m in self.PRINTED_CHARS:
+        if m in PRINTED_CHARS:
             sys.stderr.write(m)
             self.char_count += len(m)
-            if self.char_count > self.CHAR_COUNT:
+            if self.char_count > CHAR_COUNT:
                 sys.stderr.write('\n')
                 self.char_count = 0
 
@@ -56,7 +56,8 @@ class NodeHandler(object):
         parser.EndElementHandler = self.EndElementHandler
         parser.CharacterDataHandler = self.CharacterDataHandler
 
-        for line in open(filename):
+        fn = open(filename, encoding='UTF-8')
+        for i, line in enumerate(fn):
             parser.Parse(line)
         parser.Parse('', True)
         return self.return_value
